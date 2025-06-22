@@ -3,4 +3,9 @@
     <string name="login_label">Логин</string>
     <string name="password_label">Пароль</string>
     <string name="button_label">Вход</string>
+    <string name="label_posts">Список постов</string>
+    <string name="exception_nointernet">Ошибка отсутствия интернета</string>
+    <string name="exception_noauth">Ошибка авторизации</string>
+    <string name="exception_others">Остальные ошибки</string>
+    <string name="label_mistake">Ошибка :</string>
 </resources>
