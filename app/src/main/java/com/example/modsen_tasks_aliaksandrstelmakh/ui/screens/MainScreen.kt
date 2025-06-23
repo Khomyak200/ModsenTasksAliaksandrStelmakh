@@ -9,13 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.models.ButtonData
 
 @Composable
-fun MainScreen(onStartClick: () -> Unit, ) {
+fun MainScreen(
+    navController: NavController,
+) {
     val buttons = listOf(
-        ButtonData("Task 1") { onStartClick() },
-        ButtonData("Task 2") {  },
+        ButtonData("Task 1") { navController.navigate("login") },
+        ButtonData("Task 2") { navController.navigate("posts") }
     )
 
     Column(
@@ -30,5 +33,4 @@ fun MainScreen(onStartClick: () -> Unit, ) {
             }
         }
     }
-
 }
