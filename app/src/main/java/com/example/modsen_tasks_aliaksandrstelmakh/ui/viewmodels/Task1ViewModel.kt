@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repositories.LocalRepositoryImpl
 import com.example.domain.usecases.LoginUseCase
+import com.example.modsen_tasks_aliaksandrstelmakh.ui.SingleFlowEvent
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.intent.LoginIntent
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.state.LoginState
 import kotlinx.coroutines.CoroutineScope
@@ -16,10 +17,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
-class Task1ViewModel : ViewModel(
-) {
-    private val loginRepository = LocalRepositoryImpl()
-    private val loginUseCase = LoginUseCase(loginRepository)
+class Task1ViewModel(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> = _state.asStateFlow()
@@ -73,16 +73,3 @@ sealed interface LoginEvent {
     data object NavigateToSuccessScreen : LoginEvent
 }
 
-class SingleFlowEvent<T>(private val scope: CoroutineScope) {
-    private val channel = Channel<T>(Channel.UNLIMITED)
-
-    val flow = channel
-        .receiveAsFlow()
-        .shareIn(scope, SharingStarted.WhileSubscribed(), 0)
-
-    fun emit(value: T) {
-        scope.launch {
-            channel.send(value)
-        }
-    }
-}
