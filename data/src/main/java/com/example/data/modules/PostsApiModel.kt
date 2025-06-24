@@ -1,7 +1,6 @@
 package com.example.data.modules
 
 import com.example.domain.models.PostDomainModel
-import com.example.domain.models.PostsDomainModel
 import com.google.gson.annotations.SerializedName
 
 data class PostsApiModel (

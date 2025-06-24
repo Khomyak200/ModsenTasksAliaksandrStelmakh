@@ -50,9 +50,3 @@ class Task2ViewModel(
 
 }
 
-
-fun ExceptionsDomainModel.parseToString() = when (this) {
-    is ExceptionsDomainModel.NoInternet -> R.string.app_name
-    is ExceptionsDomainModel.Other -> R.string.app_name
-    is ExceptionsDomainModel.NoAuth -> R.string.app_name
-}

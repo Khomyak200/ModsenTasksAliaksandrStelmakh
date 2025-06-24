@@ -6,6 +6,3 @@ data class PostDomainModel(
     val title: String,
     val body: String
 )
-data class PostsDomainModel(
-    val posts: List<PostDomainModel>
-)

@@ -27,7 +27,6 @@ fun PostListBlock(
                     post = post,
                     modifier = modifier.fillMaxSize(),
                     onClick = {
-                        intent(PostIntent.LoadPosts)
                     }
                 )
             }
