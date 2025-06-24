@@ -3,26 +3,27 @@ package com.example.modsen_tasks_aliaksandrstelmakh.ui.activities
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import android.net.Uri
+import kotlinx.serialization.json.Json
 import androidx.navigation.compose.rememberNavController
+import com.example.domain.models.PostDomainModel
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.screens.MainScreen
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.screens.Task1_1Screen
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.screens.Task1_2Screen
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.screens.Task2Screen
-import com.example.modsen_tasks_aliaksandrstelmakh.ui.theme.ModsenTasksAliaksandrStelmakhTheme
+import com.example.modsen_tasks_aliaksandrstelmakh.ui.screens.Task3_1Screen
+import com.example.modsen_tasks_aliaksandrstelmakh.ui.screens.Task3_2Screen
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.Task1ViewModel
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.Task2ViewModel
+import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.Task3_1ViewModel
+import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.Task3_2ViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.getValue
+import com.google.gson.Gson
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +48,19 @@ class MainActivity : ComponentActivity() {
                 composable("posts") {
                     val view2Model: Task2ViewModel by viewModel()
                     Task2Screen(view2Model)
+                }
+                composable("postsSearch") {
+                    val viewModel: Task3_1ViewModel by viewModel()
+                    Task3_1Screen(viewModel, navController)
+                }
+                composable(
+                    "comments/{myObjectJson}"
+                ) { backStackEntry ->
+                    val myObjectJson = backStackEntry.arguments?.getString("myObjectJson") ?: return@composable
+                    val gson = Gson()
+                    val post = gson.fromJson(myObjectJson, PostDomainModel::class.java)
+                    val viewModel: Task3_2ViewModel = getViewModel { parametersOf(post) }
+                    Task3_2Screen(post, viewModel)
                 }
             }
         }

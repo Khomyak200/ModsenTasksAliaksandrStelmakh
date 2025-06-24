@@ -41,8 +41,11 @@ android {
 
 dependencies {
     implementation("io.insert-koin:koin-android:3.2.0")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.navigation:navigation-compose:2.7.0")
     implementation("io.insert-koin:koin-androidx-compose:3.4.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation ("androidx.compose.material:material:1.4.0")
