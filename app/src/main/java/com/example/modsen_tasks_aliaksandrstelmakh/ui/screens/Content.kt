@@ -16,6 +16,7 @@ import com.example.modsen_tasks_aliaksandrstelmakh.R
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.intent.PostIntent
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.loaders.InfiniteLoadingIndicator
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.state.PostState
+import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.parseToString
 
 @Composable
 @Preview

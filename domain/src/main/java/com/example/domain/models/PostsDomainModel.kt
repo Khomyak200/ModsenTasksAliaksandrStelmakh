@@ -6,4 +6,3 @@ data class PostDomainModel(
     val title: String,
     val body: String
 )
-
