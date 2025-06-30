@@ -7,5 +7,6 @@ data class PostState (
     val data: List<PostDomainModel>? = null,
     val error: ExceptionsDomainModel? = null,
     val isLoading: Boolean = false,
-    val searchQuery: String = ""
+    val searchQuery: String = "",
+    val filteredData: List<PostDomainModel> = emptyList()
 )

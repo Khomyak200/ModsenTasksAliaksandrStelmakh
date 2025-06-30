@@ -8,7 +8,6 @@ import androidx.compose.runtime.remember
 import com.example.domain.models.PostDomainModel
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.intent.CommentIntent
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.intent.PostIntent
-import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.Task3_1ViewModel
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.viewmodels.Task3_2ViewModel
 
 @Composable

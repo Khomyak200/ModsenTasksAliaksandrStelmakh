@@ -35,7 +35,16 @@ class Task2ViewModel(
             val result = getDataUseCase.invoke()
             when (result) {
                 is TResult.Success -> {
-                    _state.value = PostState(data = result.data)
+                    val data = result.data
+                    val filtered = data.filter {
+                        it.title.contains(_state.value.searchQuery, ignoreCase = true) ||
+                                it.body.contains(_state.value.searchQuery, ignoreCase = true)
+                    }
+                    _state.value = PostState(
+                        data = data,
+                        searchQuery = _state.value.searchQuery,
+                        filteredData = filtered
+                    )
                 }
                 is TResult.Error -> {
                     _state.value = PostState(error = result.exception)
@@ -46,7 +55,16 @@ class Task2ViewModel(
     }
 
     private fun updateSearchQuery(query: String) {
-        _state.value = _state.value.copy(searchQuery = query)
+        val currentData = _state.value.data
+        val filtered = currentData?.filter {
+            it.title.contains(query, ignoreCase = true) ||
+                    it.body.contains(query, ignoreCase = true)
+        } ?: emptyList()
+
+        _state.value = _state.value.copy(
+            searchQuery = query,
+            filteredData = filtered
+        )
     }
 }
 

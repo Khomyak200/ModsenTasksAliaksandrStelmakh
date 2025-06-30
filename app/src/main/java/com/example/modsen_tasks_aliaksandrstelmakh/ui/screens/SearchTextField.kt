@@ -56,8 +56,3 @@ fun SearchTextField(
         )
     }
 }
-
-val customSelectionColors = TextSelectionColors(
-    handleColor = Color.Blue,
-    backgroundColor = Color.Cyan
-)

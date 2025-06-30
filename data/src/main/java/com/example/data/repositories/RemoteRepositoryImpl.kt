@@ -3,6 +3,8 @@ package com.example.data.repositories
 import android.util.Log
 import com.example.data.api.RetrofitAPI
 import com.example.data.api.RetrofitClient
+import com.example.data.modules.CommentApiModel
+import com.example.data.modules.PostsApiModel
 import com.example.data.modules.toDomainModel
 import com.example.domain.mappers.TResult
 import com.example.domain.models.CommentDomainModel
@@ -12,10 +14,31 @@ import com.example.domain.repositories.IRemoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 import java.net.ConnectException
 import java.net.UnknownHostException
 
 class RemoteRepositoryImpl: IRemoteRepository {
+
+    interface RetrofitAPI {
+        @GET("posts")
+        suspend fun getData(): List<PostsApiModel>
+
+        @GET("comments")
+        suspend fun getComments(@Query("postId") postId: Int): List<CommentApiModel>
+    }
+
+    class RetrofitClient {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService: RetrofitAPI = retrofit.create(RetrofitAPI::class.java)
+    }
 
      override suspend fun getData(): TResult<List<PostDomainModel>, ExceptionsDomainModel> = withContext(Dispatchers.IO) {
         runCatching {
@@ -61,3 +84,4 @@ fun Throwable.toExceptionsDomainModel(): ExceptionsDomainModel {
         else -> ExceptionsDomainModel.Other(this)
     }
 }
+

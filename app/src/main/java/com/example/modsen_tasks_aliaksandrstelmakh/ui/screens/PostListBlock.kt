@@ -9,9 +9,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.models.PostDomainModel
+import com.example.modsen_tasks_aliaksandrstelmakh.R
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.intent.PostIntent
 
 @Composable
@@ -32,7 +34,7 @@ fun PostListBlock(
             }
         }
     } else {
-        Text("Нет постов", modifier = Modifier.padding(16.dp))
+        Text("${stringResource(id = R.string.label_no_posts)}", modifier = Modifier.padding(16.dp))
     }
 }
 

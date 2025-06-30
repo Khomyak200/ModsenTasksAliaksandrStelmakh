@@ -9,5 +9,7 @@
     <string name="exception_others">Остальные ошибки</string>
     <string name="label_mistake">Ошибка :</string>
     <string name="label_text">Введите текст для поиска</string>
-    <string name="label_comments">Нет комментариев</string>
+    <string name="label_comments_postId">Post ID:</string>
+    <string name="label_comments_id">ID:</string>
+    <string name="label_no_posts">Нет постов</string>
 </resources>

@@ -32,6 +32,6 @@ fun CommentListBlock(
             }
         }
     } else {
-        Text(text = "${stringResource(id = R.string.label_comments)}", modifier = Modifier.padding(16.dp))
+        Text(text = "${stringResource(id = R.string.label_no_posts)}", modifier = Modifier.padding(16.dp))
     }
 }
