@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +23,7 @@ import com.example.modsen_tasks_aliaksandrstelmakh.ui.loaders.InfiniteLoadingInd
 import com.example.modsen_tasks_aliaksandrstelmakh.ui.state.PostState
 
 @Composable
-fun Content(
+fun ContentSearch(
     state: PostState = PostState(),
     intent: (PostIntent) -> Unit = {},
     onPostClick: (PostDomainModel) -> Unit
@@ -39,7 +42,12 @@ fun Content(
             }
         )
 
-        val filteredPosts = state.filteredData
+        val filteredPosts = remember(state.data, state.searchQuery) {
+            state.data?.filter {
+                it.title.contains(state.searchQuery, ignoreCase = true) ||
+                        it.body.contains(state.searchQuery, ignoreCase = true)
+            } ?: emptyList()
+        }
 
         if (state.isLoading) {
             Box(

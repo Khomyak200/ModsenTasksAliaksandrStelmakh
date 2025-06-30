@@ -18,7 +18,8 @@ fun MainScreen(
 ) {
     val buttons = listOf(
         ButtonData("Task 1") { navController.navigate("login") },
-        ButtonData("Task 2") { navController.navigate("posts") }
+        ButtonData("Task 2") { navController.navigate("posts") },
+        ButtonData("Task 3") { navController.navigate("postsSearch") }
     )
 
     Column(
