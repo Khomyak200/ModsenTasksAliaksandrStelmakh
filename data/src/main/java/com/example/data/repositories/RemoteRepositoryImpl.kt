@@ -5,13 +5,13 @@ import com.example.data.api.RetrofitAPI
 import com.example.data.api.RetrofitClient
 import com.example.data.modules.toDomainModel
 import com.example.domain.mappers.TResult
+import com.example.domain.models.CommentDomainModel
 import com.example.domain.models.ExceptionsDomainModel
 import com.example.domain.models.PostDomainModel
 import com.example.domain.repositories.IRemoteRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.net.ConnectException
 import java.net.UnknownHostException
 
@@ -19,12 +19,25 @@ class RemoteRepositoryImpl: IRemoteRepository {
 
      override suspend fun getData(): TResult<List<PostDomainModel>, ExceptionsDomainModel> = withContext(Dispatchers.IO) {
         runCatching {
+            delay(3000)
             val apiService = RetrofitClient().apiService
 
             val postsApiList = apiService.getData()
             val domainPosts = postsApiList.map { it.toDomainModel() }
 
             TResult.Success<List<PostDomainModel>, ExceptionsDomainModel>(data = domainPosts)
+        }.getOrElse {
+            TResult.Error(it.toExceptionsDomainModel())
+        }
+    }
+    override suspend fun getComments(postId:Int): TResult<List<CommentDomainModel>, ExceptionsDomainModel> = withContext(Dispatchers.IO) {
+        runCatching {
+            val apiService = RetrofitClient().apiService
+
+            val commentsApiList = apiService.getComments(postId)
+            val domainComments = commentsApiList.map { it.toDomainModel() }
+
+            TResult.Success<List<CommentDomainModel>, ExceptionsDomainModel>(data = domainComments)
         }.getOrElse {
             TResult.Error(it.toExceptionsDomainModel())
         }
